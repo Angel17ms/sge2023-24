@@ -16,13 +16,43 @@
 -->
 
     <!-- actions opening views on models -->
-<!--
-    <record model="ir.actions.act_window" id="clash.action_window">
+
+    <record model="ir.actions.act_window" id="clash.action_player">
       <field name="name">clash window</field>
-      <field name="res_model">clash.clash</field>
+      <field name="res_model">clash.player</field>
       <field name="view_mode">tree,form</field>
     </record>
--->
+
+    <record model="ir.actions.act_window" id="clash.action_village">
+      <field name="name">clash window</field>
+      <field name="res_model">clash.village</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="clash.action_resources">
+      <field name="name">clash window</field>
+      <field name="res_model">clash.resources</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="clash.action_building_types">
+      <field name="name">clash window</field>
+      <field name="res_model">clash.building_types</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="clash.action_build">
+      <field name="name">clash window</field>
+      <field name="res_model">clash.build</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="clash.action_defenses">
+      <field name="name">clash window</field>
+      <field name="res_model">clash.defenses</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
 
     <!-- server action to the one above -->
 <!--
@@ -41,20 +71,33 @@
 -->
 
     <!-- Top menu item -->
-<!--
-    <menuitem name="clash" id="clash.menu_root"/>
--->
+
+    <menuitem name="clash" id="clash.menu_clash"/>
+
     <!-- menu categories -->
-<!--
-    <menuitem name="Menu 1" id="clash.menu_1" parent="clash.menu_root"/>
-    <menuitem name="Menu 2" id="clash.menu_2" parent="clash.menu_root"/>
--->
+
+    <menuitem name="Elements" id="clash.elements" parent="clash.menu_clash"/>
+
     <!-- actions -->
-<!--
-    <menuitem name="List" id="clash.menu_1_list" parent="clash.menu_1"
+
+    <menuitem name="Player" id="clash.player" parent="clash.elements"
               action="clash.action_window"/>
-    <menuitem name="Server to list" id="clash" parent="clash.menu_2"
-              action="clash.action_server"/>
--->
+
+    <menuitem name="Village" id="clash.village" parent="clash.elements"
+              action="clash.action_window"/>
+    
+    <menuitem name="Resources" id="clash.resources" parent="clash.elements"
+              action="clash.action_window"/>
+    
+    <menuitem name="Building_Types" id="clash.building_types" parent="clash.elements"
+              action="clash.action_window"/>
+    
+    <menuitem name="Build" id="clash.build" parent="clash.elements"
+              action="clash.action_window"/>
+    
+    <menuitem name="Defenses" id="clash.defenses" parent="clash.elements"
+              action="clash.action_window"/>
+    
+
   </data>
 </odoo>

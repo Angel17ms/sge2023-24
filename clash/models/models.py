@@ -8,7 +8,7 @@ class Player(models.Model):
     _description = 'Player of Clash of War'
 
     name = fields.Char()
-    level = fields.Integer(default = 0)
+    level = fields.Integer(default = 1)
 
 
 class Village(models.Model):
@@ -16,7 +16,11 @@ class Village(models.Model):
     _description = 'Village of Clash of War'
 
     name = fields.Char()
-    city_hall_level = fields.Integer()
+    city_hall_level = fields.Integer(default = 1)
+    resoureces = fields.One2many('clash.Resources', 'aldea')
+    build = fields.One2many('clash.build', 'city')
+    defenses = fields.One2many('clash.Defenses', 'city')
+
     
 
 class Resources(models.Model):
@@ -38,6 +42,7 @@ class Building_Types(models.Model):
     mana_production = fields.Float()
     gems_production = fields.Float()
     trops_production = fields.Float()
+    builds = fields.One2many('clash.build', 'type')
 
 
 class Build(models.Model):
@@ -50,9 +55,14 @@ class Build(models.Model):
     level = fields.Integer()
 
 
-class Defenses_Types(models.Model):
+class Defenses(models.Model):
     _name = 'clash.Defenses'
     _description = 'Types of build in Clash of War'
 
     name = fields.Char()
-    types = fields.Selection([('1', 'cannons'), ()])
+    cannons = fields.Integer()
+    mortar = fields.Integer()
+    archer_tower = fields.Integer()
+    infernal_tower = fields.Integer()
+    crossbow = fields.Integer()
+    city = fields.Many2one('clash.village')
