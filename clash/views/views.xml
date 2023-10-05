@@ -29,9 +29,9 @@
       <field name="view_mode">tree,form</field>
     </record>
 
-    <record model="ir.actions.act_window" id="clash.action_resources">
+    <record model="ir.actions.act_window" id="clash.action_resource">
       <field name="name">clash window</field>
-      <field name="res_model">clash.resources</field>
+      <field name="res_model">clash.resource</field>
       <field name="view_mode">tree,form</field>
     </record>
 
@@ -81,22 +81,22 @@
     <!-- actions -->
 
     <menuitem name="Player" id="clash.player" parent="clash.elements"
-              action="clash.action_window"/>
+              action="clash.action_player"/>
 
     <menuitem name="Village" id="clash.village" parent="clash.elements"
-              action="clash.action_window"/>
+              action="clash.action_village"/>
     
-    <menuitem name="Resources" id="clash.resources" parent="clash.elements"
-              action="clash.action_window"/>
+    <menuitem name="Resources" id="clash.resource" parent="clash.elements"
+              action="clash.action_resource"/>
     
     <menuitem name="Building_Types" id="clash.building_types" parent="clash.elements"
-              action="clash.action_window"/>
+              action="clash.action_building_types"/>
     
     <menuitem name="Build" id="clash.build" parent="clash.elements"
-              action="clash.action_window"/>
+              action="clash.action_build"/>
     
     <menuitem name="Defenses" id="clash.defenses" parent="clash.elements"
-              action="clash.action_window"/>
+              action="clash.action_defenses"/>
     
 
   </data>

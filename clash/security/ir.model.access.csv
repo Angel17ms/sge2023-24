@@ -1,7 +1,7 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_clash_Player,clash.Player,model_clash_Player,base.group_user,1,1,1,1
-access_clash_Village,clash.Village,model_clash_Village,base.group_user,1,1,1,1
-access_clash_Resources,clash.Resources,model_clash_Resources,base.group_user,1,1,1,1
-access_clash_Building_Types,clash.Building_Types,model_clash_Building_Types,base.group_user,1,1,1,1
-access_clash_Build,clash.Build,model_clash_Build,base.group_user,1,1,1,1
-access_clash_Defenses,clash.Defenses,model_clash_Defenses,base.group_user,1,1,1,1
+access_clash_player,clash.player,model_clash_player,base.group_user,1,1,1,1
+access_clash_village,clash.village,model_clash_village,base.group_user,1,1,1,1
+access_clash_resource,clash.resource,model_clash_resource,base.group_user,1,1,1,1
+access_clash_building_types,clash.building_types,model_clash_building_types,base.group_user,1,1,1,1
+access_clash_build,clash.build,model_clash_build,base.group_user,1,1,1,1
+access_clash_defenses,clash.defenses,model_clash_defenses,base.group_user,1,1,1,1

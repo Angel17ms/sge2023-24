@@ -3,7 +3,7 @@
 from odoo import models, fields, api
 
 
-class Player(models.Model):
+class player(models.Model):
     _name = 'clash.player'
     _description = 'Player of Clash of War'
 
@@ -11,20 +11,20 @@ class Player(models.Model):
     level = fields.Integer(default = 1)
 
 
-class Village(models.Model):
+class village(models.Model):
     _name = 'clash.village'
     _description = 'Village of Clash of War'
 
     name = fields.Char()
     city_hall_level = fields.Integer(default = 1)
-    resoureces = fields.One2many('clash.Resources', 'aldea')
+    resoureces = fields.One2many('clash.resource', 'aldea')
     build = fields.One2many('clash.build', 'city')
-    defenses = fields.One2many('clash.Defenses', 'city')
+    defenses = fields.One2many('clash.defenses', 'city')
 
     
 
-class Resources(models.Model):
-    _name = 'clash.Resources'
+class resource(models.Model):
+    _name = 'clash.resource'
     _description = 'Resources of Clash of War'
 
     name = fields.Char()
@@ -33,8 +33,8 @@ class Resources(models.Model):
 
 
 
-class Building_Types(models.Model):
-    _name = 'clash.Buildings'
+class building_types(models.Model):
+    _name = 'clash.building_types'
     _description = 'Types of build in Clash of War'
 
     name = fields.Char()
@@ -45,18 +45,18 @@ class Building_Types(models.Model):
     builds = fields.One2many('clash.build', 'type')
 
 
-class Build(models.Model):
+class build(models.Model):
     _name = 'clash.build'
     _description = 'Builds of Clash of War'
 
     name = fields.Char()
-    type = fields.Many2one('clash.Buildings')
+    type = fields.Many2one('clash.building_types')
     city = fields.Many2one('clash.village')
     level = fields.Integer()
 
 
-class Defenses(models.Model):
-    _name = 'clash.Defenses'
+class defenses(models.Model):
+    _name = 'clash.defenses'
     _description = 'Types of build in Clash of War'
 
     name = fields.Char()
