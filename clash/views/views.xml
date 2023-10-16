@@ -18,37 +18,37 @@
     <!-- actions opening views on models -->
 
     <record model="ir.actions.act_window" id="clash.action_player">
-      <field name="name">clash window</field>
+      <field name="name">clash player</field>
       <field name="res_model">clash.player</field>
       <field name="view_mode">tree,form</field>
     </record>
 
     <record model="ir.actions.act_window" id="clash.action_village">
-      <field name="name">clash window</field>
+      <field name="name">clash village</field>
       <field name="res_model">clash.village</field>
       <field name="view_mode">tree,form</field>
     </record>
 
     <record model="ir.actions.act_window" id="clash.action_resource">
-      <field name="name">clash window</field>
+      <field name="name">clash resources</field>
       <field name="res_model">clash.resource</field>
       <field name="view_mode">tree,form</field>
     </record>
 
     <record model="ir.actions.act_window" id="clash.action_building_types">
-      <field name="name">clash window</field>
+      <field name="name">clash building types</field>
       <field name="res_model">clash.building_types</field>
       <field name="view_mode">tree,form</field>
     </record>
 
     <record model="ir.actions.act_window" id="clash.action_build">
-      <field name="name">clash window</field>
+      <field name="name">clash build</field>
       <field name="res_model">clash.build</field>
       <field name="view_mode">tree,form</field>
     </record>
 
     <record model="ir.actions.act_window" id="clash.action_defenses">
-      <field name="name">clash window</field>
+      <field name="name">clash defenses</field>
       <field name="res_model">clash.defenses</field>
       <field name="view_mode">tree,form</field>
     </record>

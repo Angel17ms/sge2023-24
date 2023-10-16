@@ -42,7 +42,6 @@ class building_types(models.Model):
     mana_production = fields.Float()
     gems_production = fields.Float()
     trops_production = fields.Float()
-    builds = fields.One2many('clash.build', 'type')
 
 
 class build(models.Model):
