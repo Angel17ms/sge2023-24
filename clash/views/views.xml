@@ -53,6 +53,20 @@
       <field name="view_mode">tree,form</field>
     </record>
 
+    <record model="ir.actions.act_window" id="clash.action_defenses_type">
+      <field name="name">clash defenses type</field>
+      <field name="res_model">clash.defenses_type</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="clash.action_trops_type">
+      <field name="name">clash trops type</field>
+      <field name="res_model">clash.trops_type</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+
 
     <!-- server action to the one above -->
 <!--
@@ -97,6 +111,14 @@
     
     <menuitem name="Defenses" id="clash.defenses" parent="clash.elements"
               action="clash.action_defenses"/>
+    
+    <menuitem name="Defenses_Types" id="clash.defenses_type" parent="clash.elements"
+              action="clash.action_defenses_type"/>
+    
+    <menuitem name="Trops_Type" id="clash.trops_type" parent="clash.elements"
+              action="clash.action_trops_type"/>
+    
+    
     
 
   </data>

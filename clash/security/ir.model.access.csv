@@ -5,3 +5,5 @@ access_clash_resource,clash.resource,model_clash_resource,base.group_user,1,1,1,
 access_clash_building_types,clash.building_types,model_clash_building_types,base.group_user,1,1,1,1
 access_clash_build,clash.build,model_clash_build,base.group_user,1,1,1,1
 access_clash_defenses,clash.defenses,model_clash_defenses,base.group_user,1,1,1,1
+access_clash_defenses_type,clash.defenses_type,model_clash_defenses_type,base.group_user,1,1,1,1
+access_clash_trops_type,clash.trops_type,model_clash_trops_type,base.group_user,1,1,1,1
