@@ -35,33 +35,33 @@
       <field name="view_mode">tree,form</field>
     </record>
 
-    <record model="ir.actions.act_window" id="clash.action_building_types">
-      <field name="name">clash building types</field>
-      <field name="res_model">clash.building_types</field>
+    <record model="ir.actions.act_window" id="clash.action_building_type">
+      <field name="name">clash building type</field>
+      <field name="res_model">clash.building_type</field>
       <field name="view_mode">tree,form</field>
     </record>
 
-    <record model="ir.actions.act_window" id="clash.action_build">
-      <field name="name">clash build</field>
-      <field name="res_model">clash.build</field>
+    <record model="ir.actions.act_window" id="clash.action_building">
+      <field name="name">clash building</field>
+      <field name="res_model">clash.building</field>
       <field name="view_mode">tree,form</field>
     </record>
 
-    <record model="ir.actions.act_window" id="clash.action_defenses">
-      <field name="name">clash defenses</field>
-      <field name="res_model">clash.defenses</field>
+    <record model="ir.actions.act_window" id="clash.action_defense">
+      <field name="name">clash defense</field>
+      <field name="res_model">clash.defense</field>
       <field name="view_mode">tree,form</field>
     </record>
 
-    <record model="ir.actions.act_window" id="clash.action_defenses_type">
+    <record model="ir.actions.act_window" id="clash.action_defense_type">
       <field name="name">clash defenses type</field>
-      <field name="res_model">clash.defenses_type</field>
+      <field name="res_model">clash.defense_type</field>
       <field name="view_mode">tree,form</field>
     </record>
 
-    <record model="ir.actions.act_window" id="clash.action_trops_type">
+    <record model="ir.actions.act_window" id="clash.action_troop_type">
       <field name="name">clash trops type</field>
-      <field name="res_model">clash.trops_type</field>
+      <field name="res_model">clash.troop_type</field>
       <field name="view_mode">tree,form</field>
     </record>
 
@@ -103,20 +103,20 @@
     <menuitem name="Resources" id="clash.resource" parent="clash.elements"
               action="clash.action_resource"/>
     
-    <menuitem name="Building_Types" id="clash.building_types" parent="clash.elements"
-              action="clash.action_building_types"/>
+    <menuitem name="Building_Type" id="clash.building_type" parent="clash.elements"
+              action="clash.action_building_type"/>
     
-    <menuitem name="Build" id="clash.build" parent="clash.elements"
-              action="clash.action_build"/>
+    <menuitem name="building" id="clash.building" parent="clash.elements"
+              action="clash.action_building"/>
     
-    <menuitem name="Defenses" id="clash.defenses" parent="clash.elements"
-              action="clash.action_defenses"/>
+    <menuitem name="Defenses" id="clash.defense" parent="clash.elements"
+              action="clash.action_defense"/>
     
-    <menuitem name="Defenses_Types" id="clash.defenses_type" parent="clash.elements"
-              action="clash.action_defenses_type"/>
+    <menuitem name="Defenses_Types" id="clash.defense_type" parent="clash.elements"
+              action="clash.action_defense_type"/>
     
-    <menuitem name="Trops_Type" id="clash.trops_type" parent="clash.elements"
-              action="clash.action_trops_type"/>
+    <menuitem name="Trops_Type" id="clash.troop_type" parent="clash.elements"
+              action="clash.action_troop_type"/>
     
     
     
