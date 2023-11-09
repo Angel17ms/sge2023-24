@@ -1,0 +1,59 @@
+<odoo>
+    <data>
+
+    <record id="view_resource_tree" model="ir.ui.view">
+        <field name="name">clash.resource.tree</field>
+        <field name="model">clash.resource</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="type"/>
+                <field name="village_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_resource_form" model="ir.ui.view">
+        <field name="name">clash.resource.form</field>
+        <field name="model">clash.resource</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="type"/>
+                        <field name="village_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_resource_kanban" model="ir.ui.view">
+        <field name="name">clash.resource.kanban</field>
+        <field name="model">clash.resource</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name">Nombre</field>
+                <field name="type">Tipo</field>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_content">
+                            <div class="oe_kanban_header">
+                                <field name="name"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <field name="type"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+
+
+    </data>
+</odoo>

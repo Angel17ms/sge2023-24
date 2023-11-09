@@ -1,0 +1,36 @@
+<odoo>
+    <data>
+
+    <record id="view_defense_tree" model="ir.ui.view">
+        <field name="name">clash.defense.tree</field>
+        <field name="model">clash.defense</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="type"/>
+                <field name="village_id"/>
+                <field name="level"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_defense_form" model="ir.ui.view">
+        <field name="name">clash.defense.form</field>
+        <field name="model">clash.defense</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="type"/>
+                        <field name="village_id"/>
+                        <field name="level"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    </data>
+</odoo>

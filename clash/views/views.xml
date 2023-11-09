@@ -20,49 +20,37 @@
     <record model="ir.actions.act_window" id="clash.action_player">
       <field name="name">clash player</field>
       <field name="res_model">clash.player</field>
-      <field name="view_mode">tree,form</field>
+      <field name="view_mode">tree,form,kanban</field>
     </record>
 
     <record model="ir.actions.act_window" id="clash.action_village">
       <field name="name">clash village</field>
       <field name="res_model">clash.village</field>
-      <field name="view_mode">tree,form</field>
+      <field name="view_mode">tree,form,kanban</field>
     </record>
 
     <record model="ir.actions.act_window" id="clash.action_resource">
       <field name="name">clash resources</field>
       <field name="res_model">clash.resource</field>
-      <field name="view_mode">tree,form</field>
-    </record>
-
-    <record model="ir.actions.act_window" id="clash.action_building_type">
-      <field name="name">clash building type</field>
-      <field name="res_model">clash.building_type</field>
-      <field name="view_mode">tree,form</field>
+      <field name="view_mode">tree,form,kanban</field>
     </record>
 
     <record model="ir.actions.act_window" id="clash.action_building">
       <field name="name">clash building</field>
       <field name="res_model">clash.building</field>
-      <field name="view_mode">tree,form</field>
+      <field name="view_mode">tree,form,kanban</field>
     </record>
 
     <record model="ir.actions.act_window" id="clash.action_defense">
       <field name="name">clash defense</field>
       <field name="res_model">clash.defense</field>
-      <field name="view_mode">tree,form</field>
-    </record>
-
-    <record model="ir.actions.act_window" id="clash.action_defense_type">
-      <field name="name">clash defenses type</field>
-      <field name="res_model">clash.defense_type</field>
-      <field name="view_mode">tree,form</field>
+      <field name="view_mode">tree,form,kanban</field>
     </record>
 
     <record model="ir.actions.act_window" id="clash.action_troop_type">
       <field name="name">clash trops type</field>
       <field name="res_model">clash.troop_type</field>
-      <field name="view_mode">tree,form</field>
+      <field name="view_mode">tree,form,kanban</field>
     </record>
 
 
@@ -102,19 +90,13 @@
     
     <menuitem name="Resources" id="clash.resource" parent="clash.elements"
               action="clash.action_resource"/>
-    
-    <menuitem name="Building_Type" id="clash.building_type" parent="clash.elements"
-              action="clash.action_building_type"/>
-    
+        
     <menuitem name="building" id="clash.building" parent="clash.elements"
               action="clash.action_building"/>
     
     <menuitem name="Defenses" id="clash.defense" parent="clash.elements"
               action="clash.action_defense"/>
-    
-    <menuitem name="Defenses_Types" id="clash.defense_type" parent="clash.elements"
-              action="clash.action_defense_type"/>
-    
+        
     <menuitem name="Trops_Type" id="clash.troop_type" parent="clash.elements"
               action="clash.action_troop_type"/>
     

@@ -1,0 +1,48 @@
+<odoo>
+    <data>
+        <!-- Vista de árbol -->
+        <record id="view_building_tree" model="ir.ui.view">
+            <field name="name">clash.building.tree</field>
+            <field name="model">clash.building</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="type"/>
+                    <field name="gold_production"/>
+                    <field name="mana_production"/>
+                    <field name="gems_production"/>
+                    <field name="troops_max"/>
+                    <field name="health"/>
+                    <field name="village_id"/>
+                    <field name="level"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Vista de formulario -->
+        <record id="view_building_form" model="ir.ui.view">
+            <field name="name">clash.building.form</field>
+            <field name="model">clash.building</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="type"/>
+                            <field name="gold_production"/>
+                            <field name="mana_production"/>
+                            <field name="gems_production"/>
+                            <field name="troops_max"/>
+                            <field name="current_troops"/>
+                            <field name="health"/>
+                            <field name="village_id"/>
+                            <field name="level"/>
+                            <field name="troops" attrs="{'invisible':[('type', '!=', '4')]}" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

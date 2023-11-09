@@ -1,0 +1,38 @@
+<odoo>
+    <data>
+
+    <record id="view_village_tree" model="ir.ui.view">
+        <field name="name">clash.village.tree</field>
+        <field name="model">clash.village</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="city_hall_level"/>
+                <field name="resources"/>
+                <field name="buildings"/>
+                <field name="defenses"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_village_form" model="ir.ui.view">
+        <field name="name">clash.village.form</field>
+        <field name="model">clash.village</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="city_hall_level"/>
+                        <field name="resources"/>
+                        <field name="buildings"/>
+                        <field name="defenses"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    </data>
+</odoo>
