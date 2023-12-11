@@ -33,6 +33,7 @@
         'views/resource.xml',
         'views/troops.xml',
         'views/village.xml',
+        'views/battle.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

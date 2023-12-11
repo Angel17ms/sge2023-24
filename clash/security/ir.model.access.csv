@@ -5,3 +5,4 @@ access_clash_resource,clash.resource,model_clash_resource,base.group_user,1,1,1,
 access_clash_building,clash.building,model_clash_building,base.group_user,1,1,1,1
 access_clash_defense,clash.defense,model_clash_defense,base.group_user,1,1,1,1
 access_clash_troop_type,clash.troop_type,model_clash_troop_type,base.group_user,1,1,1,1
+access_clash_battle,clash.battle,model_clash_battle,base.group_user,1,1,1,1

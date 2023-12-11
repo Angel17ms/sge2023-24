@@ -33,6 +33,17 @@
         </field>
     </record>
 
+    <record id="view_clash_village_search" model="ir.ui.view">
+    <field name="name">clash.village.search</field>
+    <field name="model">clash.village</field>
+    <field name="arch" type="xml">
+        <search>
+            <field name="name" string="Village Name"/>
+            <field name="city_hall_level" string="City Hall Level"/>
+        </search>
+    </field>
+</record>
+
 
     </data>
 </odoo>

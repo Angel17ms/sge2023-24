@@ -8,6 +8,7 @@
             <tree>
                 <field name="name"/>
                 <field name="level"/>
+                <field name="village_level"/>
                 <field name="village_id"/>
             </tree>
         </field>
@@ -22,12 +23,29 @@
                     <group>
                         <field name="name"/>
                         <field name="level"/>
+                        <field name="village_level"/>
                         <field name="village_id"/>
                     </group>
                 </sheet>
             </form>
         </field>
     </record>
+
+    <record id="view_clash_player_search" model="ir.ui.view">
+    <field name="name">clash.player.search</field>
+    <field name="model">clash.player</field>
+    <field name="arch" type="xml">
+        <search>
+            <field name="name" string="Player Name"/>
+            <field name="level" string="Player Level"/>
+            <filter name="level_>_5" string="5 level or more" domain="[('level','>',5)]"/> 
+            <group string="Group By">
+                <filter name="group_by_level" string="Group by Level" context="{'group_by': 'level'}"/>
+            </group>
+        </search>
+        
+    </field>
+</record>
 
 
     </data>

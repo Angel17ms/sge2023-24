@@ -53,6 +53,12 @@
       <field name="view_mode">tree,form,kanban</field>
     </record>
 
+    <record model="ir.actions.act_window" id="clash.action_battle">
+      <field name="name">clash battle</field>
+      <field name="res_model">clash.battle</field>
+      <field name="view_mode">tree,form,calendar</field>
+    </record>
+
 
 
 
@@ -99,6 +105,9 @@
         
     <menuitem name="Trops_Type" id="clash.troop_type" parent="clash.elements"
               action="clash.action_troop_type"/>
+    
+    <menuitem name="Battle" id="clash.battle" parent="clash.elements"
+              action="clash.action_battle"/>
     
     
     

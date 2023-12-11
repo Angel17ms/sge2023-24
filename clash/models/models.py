@@ -2,6 +2,7 @@
 
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
+from datetime import datetime, timedelta
 
 class Player(models.Model):
     _name = 'clash.player'
@@ -10,6 +11,8 @@ class Player(models.Model):
     name = fields.Char()
     level = fields.Integer(default=1)
     village_id = fields.Many2one('clash.village', string='Village')
+    village_level = fields.Integer(string='Nivel de aldea', related='village_id.city_hall_level', readonly=True)
+    
 
     @api.constrains('level')
     def check_level(self):
@@ -39,7 +42,15 @@ class Resource(models.Model):
 
     name = fields.Char()
     type = fields.Selection([('1', 'Gold'), ('2', 'Mana'), ('3', 'Gems')], string='Resource Type')
+    amount = fields.Integer()
     village_id = fields.Many2one('clash.village', string='Village')
+    building = fields.One2many('clash.building','resource')
+
+    @api.constrains('amount')
+    def check_level(self):
+        for resource in self:
+            if resource.amount < 0:
+                raise ValidationError('The amount cannot be negative')
 
 class Building(models.Model):
     _name = 'clash.building'
@@ -55,11 +66,12 @@ class Building(models.Model):
     troops = fields.One2many('clash.troop_type', 'camp_id')
     current_troops =fields.Integer(compute='check_current_troops')
     troops_max = fields.Integer(string='Maximum Troops Capacity', compute = 'set_resources')
+    resource = fields.Many2one('clash.resource')
+    total_production_cost = fields.Float(string='Total Troop Production Cost', compute='calculate_total_production_cost')
     level = fields.Integer(default=1)
 
     @api.depends('type')
     def set_resources(self):
-        print()
         for b in self:
             
             b.gold_production = 0
@@ -99,6 +111,14 @@ class Building(models.Model):
             total_troops = sum(troop.number_of_troops for troop in building.troops)
             building.current_troops = total_troops
 
+    @api.depends('troops')
+    def calculate_total_production_cost(self):
+        for building in self:
+            total_cost = sum(troop.cost_of_production * troop.number_of_troops for troop in building.troops)
+            building.total_production_cost = total_cost
+
+
+
     
 
 
@@ -134,7 +154,7 @@ class TroopType(models.Model):
     def check_troop_limit(self):
         for troop_type in self:
             if troop_type.number_of_troops < 1:
-                raise ValidationError('The number of troops cannot be negative')
+                raise ValidationError('The number of troops cannot be lower to 1')
 
     @api.constrains('number_of_troops')
     def check_max_troops(self):
@@ -142,3 +162,74 @@ class TroopType(models.Model):
         
             if (troops.camp_id.current_troops > troops.camp_id.troops_max):
                 raise ValidationError('You cannot exceed the maximum limit of a camp')
+
+
+class Battle(models.Model):
+    _name = 'clash.battle'
+    _description = 'Battle in Clash of War'
+
+    name = fields.Char()
+    player_1 = fields.Many2one('clash.player', string='Jugador 1', required=True)
+    player_2 = fields.Many2one('clash.player', string='Jugador 2', required=True)
+    winner = fields.Many2one('clash.player', string='Ganador', compute='_compute_ganador', store=True)
+    start_date = fields.Datetime(string='Fecha de Inicio', default=fields.Datetime.now, readonly=True)
+    end_date = fields.Datetime(string='Fecha de Fin', compute='_compute_end_date', store=True)
+    battle_finished = fields.Boolean(string='Batalla terminada', compute='_compute_battle_finished', store=True)
+    progress = fields.Float(string='Progreso', compute='_compute_progress', store=True)
+
+    @api.constrains('player_1', 'player_2')
+    def check_different_players(self):
+        for battle in self:
+            if battle.player_1 and battle.player_2 and battle.player_1 == battle.player_2:
+                raise ValidationError('Los jugadores deben ser diferentes en una batalla.')
+
+
+    @api.depends('player_1', 'player_2')
+    def _compute_ganador(self):
+        for batalla in self:
+            if batalla.player_1 and batalla.player_2:
+                diferencia_ataque = (
+                    sum(tropa.damage for tropa in batalla.player_1.village_id.buildings.troops) -
+                    sum(defensa.health for defensa in batalla.player_2.village_id.defenses)
+                )
+                diferencia_defensa = (
+                    sum(defensa.damage for defensa in batalla.player_2.village_id.defenses) -
+                    sum(tropa.health for tropa in batalla.player_1.village_id.buildings.troops)
+                )
+
+                if diferencia_ataque > diferencia_defensa:
+                    batalla.winner = batalla.player_1
+                else:
+                    batalla.winner = batalla.player_2
+            else:
+                batalla.winner = None
+
+    @api.depends('start_date')
+    def _compute_end_date(self):
+        for batalla in self:
+            if batalla.start_date:
+                batalla.end_date = fields.Datetime.to_string(
+                    fields.Datetime.from_string(batalla.start_date) + timedelta(minutes=60)
+                )
+
+    @api.depends('end_date')
+    def _compute_battle_finished(self):
+        for batalla in self:
+            if batalla.end_date and fields.Datetime.from_string(batalla.end_date) < fields.Datetime.now():
+                batalla.battle_finished = True
+            else:
+                batalla.battle_finished = False
+
+    @api.depends('start_date', 'end_date')
+    def _compute_progress(self):
+        for batalla in self:
+            if batalla.start_date and batalla.end_date:
+                current_time = fields.Datetime.now()
+                start_datetime = fields.Datetime.from_string(batalla.start_date)
+                end_datetime = fields.Datetime.from_string(batalla.end_date)
+                total_time = (end_datetime - start_datetime).total_seconds() / 60
+                elapsed_time = max(0, (current_time - start_datetime).total_seconds() / 60)
+                progress = min(100, (elapsed_time / total_time) * 100)
+                batalla.progress = progress
+            else:
+                batalla.progress = 0

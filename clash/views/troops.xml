@@ -35,6 +35,16 @@
         </field>
     </record>
 
+    <record id="view_clash_troop_type_search" model="ir.ui.view">
+    <field name="name">clash.troop_type.search</field>
+    <field name="model">clash.troop_type</field>
+    <field name="arch" type="xml">
+        <search>
+            <field name="name" string="Troop Name"/>
+        </search>
+    </field>
+</record>
+
 
     </data>
 </odoo>
