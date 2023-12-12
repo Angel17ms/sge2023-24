@@ -4,7 +4,7 @@
             <field name="name">clash.building.tree</field>
             <field name="model">clash.building</field>
             <field name="arch" type="xml">
-                <tree>
+                <tree decoration-info="state=='name'" decoration-danger="state=='health'">
                     <field name="name"/>
                     <field name="type"/>
                     <field name="gold_production"/>
