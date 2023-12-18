@@ -8,8 +8,6 @@
             <tree>
                 <field name="name"/>
                 <field name="type"/>
-                <field name="damage"/>
-                <field name="health"/>
                 <field name="village_id"/>
                 <field name="level"/>
             </tree>
@@ -25,27 +23,18 @@
                     <group>
                         <field name="name"/>
                         <field name="type"/>
-                        <field name="damage"/>
-                        <field name="health"/>
                         <field name="village_id"/>
                         <field name="level"/>
+                        <button string="Incrementar Nivel" class="oe_highlight" type="object"
+                                name="button_increment_level"/>
                     </group>
+                    
+                        
+                    
                 </sheet>
             </form>
         </field>
     </record>
-
-    <record id="view_clash_defense_search" model="ir.ui.view">
-    <field name="name">clash.defense.search</field>
-    <field name="model">clash.defense</field>
-    <field name="arch" type="xml">
-        <search>
-            <field name="name" string="Defense Name"/>
-            <field name="type" string="Defense Type"/>
-            <field name="level" string="Defense Level"/>
-        </search>
-    </field>
-</record>
 
 
     </data>

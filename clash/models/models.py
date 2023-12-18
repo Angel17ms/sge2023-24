@@ -12,13 +12,31 @@ class Player(models.Model):
     level = fields.Integer(default=1)
     village_id = fields.Many2one('clash.village', string='Village')
     village_level = fields.Integer(string='Nivel de aldea', related='village_id.city_hall_level', readonly=True)
-    
 
     @api.constrains('level')
     def check_level(self):
         for player in self:
             if player.level < 1:
-                raise ValidationError('The level of player cannot be lower to 1')
+                raise ValidationError('The level of player cannot be lower than 1')
+
+    @api.model
+    def reset_properties(self):
+        for player in self:
+            if player.village_id:
+                player.village_id.unlink()
+
+            player.write({
+                'level': 1,
+                'village_id': None,
+            })
+        return True
+
+    def action_reset_player_properties(self):
+        players = self.env['clash.player'].search([])
+        players.reset_properties()
+        return True
+
+
 
 class Village(models.Model):
     _name = 'clash.village'
@@ -35,6 +53,37 @@ class Village(models.Model):
         for village in self:
             if village.city_hall_level < 1:
                 raise ValidationError('The level of city hall cannot be lower to 1')
+
+    @api.model
+    def update_resources(self):
+        villages = self.search([])
+        for village in villages:
+            # Inicializa los totales
+            total_gold_production = 0
+            total_mana_production = 0
+            total_gems_production = 0
+
+            # Suma la producción de recursos de los edificios
+            for building in village.buildings:
+                total_gold_production += building.gold_production
+                total_mana_production += building.mana_production
+                total_gems_production += building.gems_production
+
+            # Actualiza los recursos en la aldea
+            resources = village.resources.filtered(lambda r: r.type in ('1', '2', '3'))
+            for resource in resources:
+                if resource.type == '1':
+                    resource.amount += total_gold_production
+                elif resource.type == '2':
+                    resource.amount += total_mana_production
+                elif resource.type == '3':
+                    resource.amount += total_gems_production
+
+            print("Update complete!")
+
+        return True
+
+
 
 class Resource(models.Model):
     _name = 'clash.resource'
@@ -131,13 +180,18 @@ class Defense(models.Model):
     damage = fields.Float()
     health = fields.Float()
     village_id = fields.Many2one('clash.village', string='Village')
-    level = fields.Integer()
+    level = fields.Integer(default = 1)
 
     @api.constrains('level')
     def check_level(self):
         for defense in self:
             if defense.level < 1:
                 raise ValidationError('The level of defense cannot be lower to 1')
+            
+    def button_increment_level(self):
+        for defense in self:
+            defense.write({'level': defense.level + 1})
+        return True
 
 class TroopType(models.Model):
     _name = 'clash.troop_type'
@@ -212,13 +266,14 @@ class Battle(models.Model):
                     fields.Datetime.from_string(batalla.start_date) + timedelta(minutes=60)
                 )
 
-    @api.depends('end_date')
+    @api.depends('start_date', 'end_date')
     def _compute_battle_finished(self):
         for batalla in self:
             if batalla.end_date and fields.Datetime.from_string(batalla.end_date) < fields.Datetime.now():
                 batalla.battle_finished = True
             else:
                 batalla.battle_finished = False
+
 
     @api.depends('start_date', 'end_date')
     def _compute_progress(self):
@@ -233,3 +288,18 @@ class Battle(models.Model):
                 batalla.progress = progress
             else:
                 batalla.progress = 0
+
+    @api.model
+    def update_battle_progress(self):
+        battles = self.search([('start_date', '!=', False), ('end_date', '!=', False), ('battle_finished', '=', False)])
+
+        for battle in battles:
+            current_time = fields.Datetime.now()
+            start_datetime = fields.Datetime.from_string(battle.start_date)
+            end_datetime = fields.Datetime.from_string(battle.end_date)
+            total_time = (end_datetime - start_datetime).total_seconds() / 60
+            elapsed_time = max(0, (current_time - start_datetime).total_seconds() / 60)
+            progress = min(100, (elapsed_time / total_time) * 100)
+
+            if not battle.battle_finished:
+                battle.write({'progress': progress})

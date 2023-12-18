@@ -34,6 +34,8 @@
         'views/troops.xml',
         'views/village.xml',
         'views/battle.xml',
+        'crons/battle.xml',
+        'crons/village.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

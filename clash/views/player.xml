@@ -1,6 +1,12 @@
 <odoo>
     <data>
 
+    <record id="action_reset_player_properties" model="ir.actions.server">
+            <field name="name">Reset Player Properties</field>
+            <field name="model_id" ref="model_clash_player"/>
+            <field name="code">action = self.env['clash.player'].reset_properties()</field>
+        </record>
+
     <record id="view_player_tree" model="ir.ui.view">
         <field name="name">clash.player.tree</field>
         <field name="model">clash.player</field>
@@ -10,6 +16,10 @@
                 <field name="level"/>
                 <field name="village_level"/>
                 <field name="village_id"/>
+                    <button string="Reset Properties" class="oe_highlight" type="object"
+                            name="action_reset_player_properties"
+                            confirm="Are you sure you want to reset the properties of the selected player? This action will set the level to 1 and remove their village."/>
+                
             </tree>
         </field>
     </record>
@@ -46,6 +56,38 @@
         
     </field>
 </record>
+
+
+<record id="view_player_kanban" model="ir.ui.view">
+            <field name="name">clash.player.kanban</field>
+            <field name="model">clash.player</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <div class="oe_kanban_content">
+                                    <div class="oe_kanban_header">
+                                        <field name="name"/>
+                                        <field name="level"/>
+                                    </div>
+                                    <div class="oe_kanban_details">
+                                        <div class="oe_kanban_detail">
+                                            <span>Village: </span>
+                                            <field name="village_id"/>
+                                        </div>
+                                        <div class="oe_kanban_detail">
+                                            <span>Village Level: </span>
+                                            <field name="village_level"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
 
 
     </data>
