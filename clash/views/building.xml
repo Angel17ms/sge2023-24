@@ -60,6 +60,8 @@
                             <field name="level"/>
                             <field name="troops" attrs="{'invisible':[('type', '!=', '4')]}" />
                             <field name="resource" attrs="{'invisible':[('type', '==', '4')]}"/>
+                            <button string="Incrementar Nivel" class="oe_highlight" type="object"
+                                name="button_increment_level"/>
                         </group>
                         
                     </sheet>

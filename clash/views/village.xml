@@ -27,6 +27,8 @@
                         <field name="resources"/>
                         <field name="buildings"/>
                         <field name="defenses"/>
+                        <button string="Incrementar Nivel" class="oe_highlight" type="object"
+                                name="button_increment_level"/>
                     </group>
                 </sheet>
             </form>

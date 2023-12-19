@@ -16,10 +16,10 @@
                 <field name="level"/>
                 <field name="village_level"/>
                 <field name="village_id"/>
-                    <button string="Reset Properties" class="oe_highlight" type="object"
-                            name="action_reset_player_properties"
-                            confirm="Are you sure you want to reset the properties of the selected player? This action will set the level to 1 and remove their village."/>
-                
+                <button string="Reset Properties" class="oe_highlight" type="object"
+                        name="action_reset_player_properties"
+                        confirm="Are you sure you want to reset the properties of the selected player? This action will set the level to 1 and remove their village."/>
+            
             </tree>
         </field>
     </record>

@@ -26,19 +26,19 @@
     <record model="ir.actions.act_window" id="clash.action_village">
       <field name="name">clash village</field>
       <field name="res_model">clash.village</field>
-      <field name="view_mode">tree,form,kanban</field>
+      <field name="view_mode">tree,form</field>
     </record>
 
     <record model="ir.actions.act_window" id="clash.action_resource">
       <field name="name">clash resources</field>
       <field name="res_model">clash.resource</field>
-      <field name="view_mode">tree,form,kanban</field>
+      <field name="view_mode">tree,form</field>
     </record>
 
     <record model="ir.actions.act_window" id="clash.action_building">
       <field name="name">clash building</field>
       <field name="res_model">clash.building</field>
-      <field name="view_mode">tree,form,kanban</field>
+      <field name="view_mode">tree,form</field>
     </record>
 
     <record model="ir.actions.act_window" id="clash.action_defense">
@@ -50,7 +50,7 @@
     <record model="ir.actions.act_window" id="clash.action_troop_type">
       <field name="name">clash trops type</field>
       <field name="res_model">clash.troop_type</field>
-      <field name="view_mode">tree,form,kanban</field>
+      <field name="view_mode">tree,form</field>
     </record>
 
     <record model="ir.actions.act_window" id="clash.action_battle">

@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
 from datetime import datetime, timedelta
@@ -36,8 +35,6 @@ class Player(models.Model):
         players.reset_properties()
         return True
 
-
-
 class Village(models.Model):
     _name = 'clash.village'
     _description = 'Village in Clash of War'
@@ -58,18 +55,15 @@ class Village(models.Model):
     def update_resources(self):
         villages = self.search([])
         for village in villages:
-            # Inicializa los totales
             total_gold_production = 0
             total_mana_production = 0
             total_gems_production = 0
 
-            # Suma la producción de recursos de los edificios
             for building in village.buildings:
                 total_gold_production += building.gold_production
                 total_mana_production += building.mana_production
                 total_gems_production += building.gems_production
 
-            # Actualiza los recursos en la aldea
             resources = village.resources.filtered(lambda r: r.type in ('1', '2', '3'))
             for resource in resources:
                 if resource.type == '1':
@@ -83,7 +77,10 @@ class Village(models.Model):
 
         return True
 
-
+    def button_increment_level(self):
+        for village in self:
+            village.write({'city_hall_level': village.city_hall_level + 1})
+        return True
 
 class Resource(models.Model):
     _name = 'clash.resource'
@@ -122,11 +119,11 @@ class Building(models.Model):
     @api.depends('type')
     def set_resources(self):
         for b in self:
-            
             b.gold_production = 0
             b.mana_production = 0.0
             b.gems_production = 0.0
             b.troops_max = 0
+
             if b.type == '1':
                 b.gold_production = 100.0
                 b.mana_production = 0.0
@@ -165,18 +162,18 @@ class Building(models.Model):
         for building in self:
             total_cost = sum(troop.cost_of_production * troop.number_of_troops for troop in building.troops)
             building.total_production_cost = total_cost
-
-
-
     
-
+    def button_increment_level(self):
+        for builds in self:
+            builds.write({'level': builds.level + 1})
+        return True
 
 class Defense(models.Model):
     _name = 'clash.defense'
     _description = 'Defenses in Clash of War'
 
     name = fields.Char()
-    type = fields.Selection([('1','Cañon'),('2','Torre de Francotirador'),('3','Mortero'), ('4','Ballesta')])
+    type = fields.Selection([('1','Cañon'),('2','Torre de Francotirador'),('3','Mortero'), ('4','Ballesta')], default = '1')
     damage = fields.Float()
     health = fields.Float()
     village_id = fields.Many2one('clash.village', string='Village')
@@ -192,6 +189,9 @@ class Defense(models.Model):
         for defense in self:
             defense.write({'level': defense.level + 1})
         return True
+
+    
+                
 
 class TroopType(models.Model):
     _name = 'clash.troop_type'
@@ -213,10 +213,8 @@ class TroopType(models.Model):
     @api.constrains('number_of_troops')
     def check_max_troops(self):
         for troops in self:
-        
-            if (troops.camp_id.current_troops > troops.camp_id.troops_max):
+            if troops.camp_id.current_troops > troops.camp_id.troops_max:
                 raise ValidationError('You cannot exceed the maximum limit of a camp')
-
 
 class Battle(models.Model):
     _name = 'clash.battle'
@@ -236,7 +234,6 @@ class Battle(models.Model):
         for battle in self:
             if battle.player_1 and battle.player_2 and battle.player_1 == battle.player_2:
                 raise ValidationError('Los jugadores deben ser diferentes en una batalla.')
-
 
     @api.depends('player_1', 'player_2')
     def _compute_ganador(self):
@@ -269,11 +266,10 @@ class Battle(models.Model):
     @api.depends('start_date', 'end_date')
     def _compute_battle_finished(self):
         for batalla in self:
-            if batalla.end_date and fields.Datetime.from_string(batalla.end_date) < fields.Datetime.now():
+            if batalla.end_date and fields.Datetime.from_string(batalla.end_date) < datetime.now():
                 batalla.battle_finished = True
             else:
                 batalla.battle_finished = False
-
 
     @api.depends('start_date', 'end_date')
     def _compute_progress(self):
@@ -300,6 +296,5 @@ class Battle(models.Model):
             total_time = (end_datetime - start_datetime).total_seconds() / 60
             elapsed_time = max(0, (current_time - start_datetime).total_seconds() / 60)
             progress = min(100, (elapsed_time / total_time) * 100)
-
-            if not battle.battle_finished:
-                battle.write({'progress': progress})
+            battle._compute_battle_finished()
+            battle.write({'progress': progress})

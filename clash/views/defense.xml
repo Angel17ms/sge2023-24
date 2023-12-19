@@ -1,40 +1,68 @@
 <odoo>
     <data>
 
-    <record id="view_defense_tree" model="ir.ui.view">
-        <field name="name">clash.defense.tree</field>
-        <field name="model">clash.defense</field>
-        <field name="arch" type="xml">
-            <tree>
-                <field name="name"/>
-                <field name="type"/>
-                <field name="village_id"/>
-                <field name="level"/>
-            </tree>
-        </field>
-    </record>
+    <record id="view_clash_defense_tree" model="ir.ui.view">
+            <field name="name">clash.defense.tree</field>
+            <field name="model">clash.defense</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="type"/>
+                    <field name="damage"/>
+                    <field name="health"/>
+                    <field name="village_id"/>
+                    <field name="level"/>
+                </tree>
+            </field>
+        </record>
 
-    <record id="view_defense_form" model="ir.ui.view">
-        <field name="name">clash.defense.form</field>
-        <field name="model">clash.defense</field>
-        <field name="arch" type="xml">
-            <form>
-                <sheet>
+        <record id="view_clash_defense_form" model="ir.ui.view">
+            <field name="name">clash.defense.form</field>
+            <field name="model">clash.defense</field>
+            <field name="arch" type="xml">
+                <form>
                     <group>
                         <field name="name"/>
                         <field name="type"/>
+                        <field name="damage"/>
+                        <field name="health"/>
                         <field name="village_id"/>
                         <field name="level"/>
                         <button string="Incrementar Nivel" class="oe_highlight" type="object"
                                 name="button_increment_level"/>
                     </group>
-                    
-                        
-                    
-                </sheet>
-            </form>
-        </field>
-    </record>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_clash_defense_kanban" model="ir.ui.view">
+            <field name="name">clash.defense.kanban</field>
+            <field name="model">clash.defense</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile">
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_card">
+                                <div class="oe_kanban_card_header">
+                                    <strong><field name="name"/></strong>
+                                </div>
+                                <div class="oe_kanban_card_content">
+                                    <div>Type: <field name="type"/></div>
+                                    <div>Damage: <field name="damage"/></div>
+                                    <div>Health: <field name="health"/></div>
+                                    <div>Level: <field name="level"/></div>
+                                </div>
+                                <div class="oe_kanban_card_footer">
+                                    <button string="Incrementar Nivel" class="oe_highlight" type="object"
+                                name="button_increment_level"/>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
 
 
     </data>
