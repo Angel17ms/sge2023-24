@@ -47,6 +47,36 @@
     </field>
 </record>
 
+        <record model="ir.ui.view" id="wizard_resources_view">
+            <field name="name">wizard.clash.resources</field>
+            <field name="model">clash.resource_wizard</field>
+            <field name="arch" type="xml">
+                <form string="Select Resource">
+                    <group>
+                        <field name="name"/>
+                        <field name="type"/>
+                        <field name="village_id"/>
+                        <field name="amount"/>
+                    </group>
+                    <footer>
+                        <button name="launch" type="object"
+                                string="Launch" class="oe_highlight"/>
+                        or
+                        <button special="cancel" string="Cancel"/>
+                    </footer>
+
+                </form>
+            </field>
+        </record>
+
+        <record id="clash.launch_resource_wizard" model="ir.actions.act_window">
+            <field name="name">Launch resource</field>
+            <field name="res_model">clash.resource_wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="model_clash_resource_wizard"/>
+        </record>
+
 
     </data>
 </odoo>

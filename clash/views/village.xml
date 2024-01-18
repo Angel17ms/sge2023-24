@@ -24,12 +24,24 @@
                     <group>
                         <field name="name"/>
                         <field name="city_hall_level"/>
-                        <field name="resources"/>
-                        <field name="buildings"/>
-                        <field name="defenses"/>
+
+                    </group>
+                    <group>
                         <button string="Incrementar Nivel" class="oe_highlight" type="object"
                                 name="button_increment_level"/>
                     </group>
+                    <notebook>
+                            <page string="Resources">
+                                <button name="%(clash.launch_resource_wizard)d" type="action" string="Launch resource" class="oe_highlight" />
+                            </page>
+                            <page string="Building">
+                                <field name="buildings"/>
+                            </page>
+                            <page string="Defenses">
+                                <field name="defenses"/>
+                            </page>
+                        </notebook>
+                    
                 </sheet>
             </form>
         </field>
@@ -45,6 +57,9 @@
         </search>
     </field>
 </record>
+
+
+        
 
 
     </data>
