@@ -74,7 +74,6 @@
             <field name="res_model">clash.resource_wizard</field>
             <field name="view_mode">form</field>
             <field name="target">new</field>
-            <field name="binding_model_id" ref="model_clash_resource_wizard"/>
         </record>
 
 

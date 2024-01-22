@@ -32,7 +32,8 @@
                     </group>
                     <notebook>
                             <page string="Resources">
-                                <button name="%(clash.launch_resource_wizard)d" type="action" string="Launch resource" class="oe_highlight" />
+                                <button name="%(clash.launch_resource_wizard)d" type="action" string="Launch resource" class="oe_highlight" context="{'resource_context': active_id}" />
+                                <field name="resources"/>
                             </page>
                             <page string="Building">
                                 <field name="buildings"/>

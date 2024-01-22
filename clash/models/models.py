@@ -90,7 +90,6 @@ class Resource(models.Model):
     type = fields.Selection([('1', 'Gold'), ('2', 'Mana'), ('3', 'Gems')], string='Resource Type')
     amount = fields.Integer()
     village_id = fields.Many2one('clash.village', string='Village')
-    building = fields.One2many('clash.building','resource')
 
     @api.constrains('amount')
     def check_level(self):
@@ -112,7 +111,6 @@ class Building(models.Model):
     troops = fields.One2many('clash.troop_type', 'camp_id')
     current_troops =fields.Integer(compute='check_current_troops')
     troops_max = fields.Integer(string='Maximum Troops Capacity', compute = 'set_resources')
-    resource = fields.Many2one('clash.resource')
     total_production_cost = fields.Float(string='Total Troop Production Cost', compute='calculate_total_production_cost')
     level = fields.Integer(default=1)
 
@@ -216,24 +214,6 @@ class TroopType(models.Model):
             if troops.camp_id.current_troops > troops.camp_id.troops_max:
                 raise ValidationError('You cannot exceed the maximum limit of a camp')
 
-class resource_wizard(models.TransientModel):
-    _name = "clash.resource_wizard"
-
-    def _default_resource(self):
-         return self.env['clash.resource'].browse(self._context.get('active_id'))
-
-    name = fields.Char()
-    type = fields.Selection([('1', 'Gold'), ('2', 'Mana'), ('3', 'Gems')], string='Resource Type')
-    amount = fields.Integer()
-    village_id = fields.Many2one('clash.village', string='Village')
-
-    def launch(self):
-        self.env['clash.resource'].create({'name':self.name,
-                                          'type':self.type,
-                                          'amount':self.amount,
-                                          'village_id': self.village_id})
-
-
 class Battle(models.Model):
     _name = 'clash.battle'
     _description = 'Battle in Clash of War'
@@ -323,15 +303,18 @@ class resource_wizard(models.TransientModel):
     _name = "clash.resource_wizard"
 
     def _default_resource(self):
-         return self.env['clash.resource'].browse(self._context.get('active_id'))
+        return self._context.get('resource_context')
 
     name = fields.Char()
     type = fields.Selection([('1', 'Gold'), ('2', 'Mana'), ('3', 'Gems')], string='Resource Type')
     amount = fields.Integer()
-    village_id = fields.Many2one('clash.village', string='Village')
+    village_id = fields.Many2one('clash.village', string='Village', default=_default_resource, readonly=True)
 
     def launch(self):
-        self.env['clash.resource'].create({'name':self.name,
-                                          'type':self.type,
-                                          'amount':self.amount,
-                                          'village_id': self.village_id})
+        try:
+            self.env['clash.resource'].create({'name': self.name,
+                                            'type': self.type,
+                                            'amount': self.amount,
+                                            'village_id': self.village_id.id})
+        except Exception as e:
+            print("Error during resource creation:", e)
