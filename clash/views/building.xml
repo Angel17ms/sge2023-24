@@ -1,0 +1,172 @@
+<odoo>
+    <data>
+        <record id="view_building_tree" model="ir.ui.view">
+            <field name="name">clash.building.tree</field>
+            <field name="model">clash.building</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="type"/>
+                    <field name="gold_production"/>
+                    <field name="mana_production"/>
+                    <field name="gems_production"/>
+                    <field name="troops_max"/>
+                    <field name="health"/>
+                    <field name="village_id"/>
+                    <field name="total_production_cost"/>
+                    <field name="level"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_building_form" model="ir.ui.view">
+            <field name="name">clash.building.form</field>
+            <field name="model">clash.building</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                    <kanban>
+                        <templates>
+                            <t t-name="kanban-box">
+                                <div class="oe_kanban_content">
+                                    <div class="oe_kanban_header">
+                                        <field name="name"/>
+                                        <field name="type"/>
+                                    </div>
+                                    <div class="oe_kanban_details">
+                                        <div class="oe_kanban_detail">
+                                            <span>Gold Production: </span>
+                                            <field name="gold_production"/>
+                                        </div>
+                                        <div class="oe_kanban_detail">
+                                            <span>Mana Production: </span>
+                                            <field name="mana_production"/>
+                                        </div>
+                                        <div class="oe_kanban_detail">
+                                            <span>Gems Production: </span>
+                                            <field name="gems_production"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </templates>
+                    </kanban>
+                        <group>
+                            <field name="troops_max"/>
+                            <field name="current_troops"/>
+                            <field name="health"/>
+                            <field name="village_id"/>
+                            <field name="total_production_cost" attrs="{'invisible':[('type', '!=', '4')]}"/>
+                            <field name="level"/>
+                            <field name="troops" attrs="{'invisible':[('type', '!=', '4')]}" />
+                            <button string="Incrementar Nivel" class="oe_highlight" type="object"
+                                name="button_increment_level"/>
+                        </group>
+                        
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_clash_building_search" model="ir.ui.view">
+    <field name="name">clash.building.search</field>
+    <field name="model">clash.building</field>
+    <field name="arch" type="xml">
+        <search>
+            <field name="name" string="Building Name"/>
+            <field name="type" string="Building Type"/>
+            <field name="level" string="Building Level"/>
+            <group string="Group By">
+                <filter name="group_by_Type" string="Group by Type" context="{'group_by': 'type'}"/>
+            </group>
+        </search>
+    </field>
+</record>
+
+        <!--<record model="ir.ui.view" id="wizard_build_view">
+            <field name="name">wizard.clash.build</field>
+            <field name="model">clash.build_wizard</field>
+            <field name="arch" type="xml">
+                <form string="Select Resource">
+                    <group>
+                        <field name="name"/>
+                        <field name="type"/>
+                        <field name="health"/>
+                        <field name="village_id"/>
+                        <field name="level"/>
+                        <field name="troops"/>
+                            <button string="Incrementar Nivel" class="oe_highlight" type="object"
+                                name="button_increment_level"/>
+                    </group>
+                    <footer>
+                        <button name="launch" type="object"
+                                string="Launch" class="oe_highlight"/>
+                        or
+                        <button special="cancel" string="Cancel"/>
+                    </footer>
+                    
+
+                </form>
+            </field>
+        </record>
+-->
+        <record model="ir.ui.view" id="clash.build_wizard_view">
+            <field name="name">Clash Build wizard</field>
+            <field name="model">clash.build_wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="previous" type="object"
+                                string="Previous" states="troops,stats"
+                        />
+                        <button name="next" type="object"
+                                string="Next"
+                                states="type,troops"
+                                class="oe_highlight"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group states="type">
+                            <field name="name"/>
+                            <field name="village_id" />
+                            <field name="type"/>
+                        </group>
+                        <group states="troops">
+                            <field name="troops">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="damage"/>
+                                    <field name="health"/>
+                                    <field name="cost_of_production"/>
+                                    <field name="number_of_troops"/>
+                                    <field name="camp_id"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <group states="stats">
+                            <field name="health"/>
+                            <field name="level"/>
+
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button states="stats" name="launch" type="object"
+                                string="Create Build" class="oe_highlight"/>
+                        or
+                        <button special="cancel" string="Cancel"/>
+                    </footer>
+
+                </form>
+            </field>
+        </record>
+
+
+        <record id="clash.launch_build_wizard" model="ir.actions.act_window">
+            <field name="name">Launch build</field>
+            <field name="res_model">clash.build_wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>
