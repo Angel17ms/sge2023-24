@@ -356,7 +356,7 @@ class build_wizard(models.TransientModel):
                 'level': self.level,
             }
 
-            new_building = self.env['clash.building'].create(building_vals)
+            self.env['clash.building'].create(building_vals)
 
         except Exception as e:
             print("Error during build creation:", e)
