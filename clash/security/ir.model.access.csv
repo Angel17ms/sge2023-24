@@ -8,3 +8,4 @@ access_clash_troop_type,clash.troop_type,model_clash_troop_type,base.group_user,
 access_clash_battle,clash.battle,model_clash_battle,base.group_user,1,1,1,1
 access_clash_resource_wizard,clash.resource_wizard,model_clash_resource_wizard,base.group_user,1,1,1,1
 access_clash_build_wizard,clash.build_wizard,model_clash_build_wizard,base.group_user,1,1,1,1
+access_clash_troop_wizard,clash.troop_wizard,model_clash_troop_wizard,base.group_user,1,1,1,1

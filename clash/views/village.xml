@@ -36,72 +36,6 @@
                                 <field name="resources"/>
                             </page>
                             <page string="Building">
-                                <field name="buildings"/>
-                            </page>
-                            <page string="Defenses">
-                                <field name="defenses"/>
-                            </page>
-                        </notebook>
-                    
-                </sheet>
-            </form>
-        </field>
-    </record>
-
-    <record id="view_clash_village_search" model="ir.ui.view">
-    <field name="name">clash.village.search</field>
-    <field name="model">clash.village</field>
-    <field name="arch" type="xml">
-        <search>
-            <field name="name" string="Village Name"/>
-            <field name="city_hall_level" string="City Hall Level"/>
-        </search>
-    </field>
-</record>
-
-
-        
-
-
-    </data>
-</odoo<odoo>
-    <data>
-
-    <record id="view_village_tree" model="ir.ui.view">
-        <field name="name">clash.village.tree</field>
-        <field name="model">clash.village</field>
-        <field name="arch" type="xml">
-            <tree>
-                <field name="name"/>
-                <field name="city_hall_level"/>
-                <field name="resources"/>
-                <field name="buildings"/>
-                <field name="defenses"/>
-            </tree>
-        </field>
-    </record>
-
-    <record id="view_village_form" model="ir.ui.view">
-        <field name="name">clash.village.form</field>
-        <field name="model">clash.village</field>
-        <field name="arch" type="xml">
-            <form>
-                <sheet>
-                    <group>
-                        <field name="name"/>
-                        <field name="city_hall_level"/>
-
-                    </group>
-                    <group>
-                        <button string="Incrementar Nivel" class="oe_highlight" type="object"
-                                name="button_increment_level"/>
-                    </group>
-                    <notebook>
-                            <page string="Resources">
-                                <button name="%(clash.launch_resource_wizard)d" type="action" string="Launch resource" class="oe_highlight" context="{'resource_context': active_id}" />
-                                <field name="resources"/>
-                            </page>
-                            <page string="Building">
                                 <button name="%(clash.launch_build_wizard)d" type="action" string="Launch build" class="oe_highlight" context="{'build_context': active_id}" />
                                 <field name="buildings"/>
                             </page>
@@ -131,4 +65,4 @@
 
 
     </data>
-</odoo
+</odoo>

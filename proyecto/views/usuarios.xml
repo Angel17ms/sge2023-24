@@ -1,0 +1,40 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="proyecto.view_usuarios_tree" >
+            <field name="name">usuarios_tree</field>
+            <field name="model">res.users</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="password"/>
+                    <field name="karma"/>
+                    <field name="is_premium"/>
+                    <field name="premium_expiry_date"/>
+                    <field name="days_to_expiry"/>
+
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="proyecto.view_usuarios_form" >
+            <field name="name">usuarios_form</field>
+            <field name="model">res.users</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <separator string ="Datos Usuario"></separator>
+                            <field name="name"/>
+                            <field name="password"/>
+			    <field name="login"/>
+                            <field name="karma"/>
+                            <field name="is_premium"/>
+                        </group>
+                    </sheet>
+
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>
+

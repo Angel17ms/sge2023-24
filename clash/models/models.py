@@ -331,7 +331,7 @@ class build_wizard(models.TransientModel):
     type = fields.Selection([('1','Mina'),('2','Recolector'),('3','Extractor'),('4','Campamento')], default = '1')
     health = fields.Float()
     village_id = fields.Many2one('clash.village', string='Village', default=_default_build, readonly=True)
-    troops = fields.One2many('clash.troop_type', 'camp_id')
+    troops = fields.One2many('clash.troop_wizard', 'camp_id')
     level = fields.Integer(default=1)
 
     state = fields.Selection([
@@ -356,16 +356,32 @@ class build_wizard(models.TransientModel):
                 'level': self.level,
             }
 
-            self.env['clash.building'].create(building_vals)
+            new_building = self.env['clash.building'].create(building_vals)
+            
+            for troop_wizard in self.troops:
+                print("Creating troop:", troop_wizard.name)
+                troop_vals = {
+                    'name': troop_wizard.name,
+                    'damage': troop_wizard.damage,
+                    'health': troop_wizard.health,
+                    'cost_of_production': troop_wizard.cost_of_production,
+                    'number_of_troops': troop_wizard.number_of_troops,
+                    'camp_id': new_building.id, 
+                }
+                self.env['clash.troop_type'].create(troop_vals)
 
         except Exception as e:
             print("Error during build creation:", e)
+        
 
     def previous(self):
         if (self.state == 'troops'):
             self.state = 'type'
         elif (self.state == 'stats'):
-            self.state = 'troops'
+            if (self.type == '4'):
+                self.state = 'troops'
+            else:
+                self.state = 'type'
         return {
             'type': 'ir.actions.act_window',
             'name': 'Launch build',
@@ -394,3 +410,21 @@ class build_wizard(models.TransientModel):
             'context': self._context
         }
     
+
+class troop_wizard(models.TransientModel):
+    _name = "clash.troop_wizard"
+
+    def _default_troop(self):
+        return self._context.get('troop_context')
+
+    name = fields.Char()
+    damage = fields.Float()
+    health = fields.Float()
+    cost_of_production = fields.Float(string='Production Cost')
+    number_of_troops = fields.Integer(string='Number of Troops')
+    camp_id = fields.Many2one('clash.build_wizard', string='Camp')
+
+
+        
+
+   
