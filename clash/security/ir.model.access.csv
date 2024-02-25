@@ -1,5 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_clash_player,clash.player,model_clash_player,base.group_user,1,1,1,1
 access_clash_village,clash.village,model_clash_village,base.group_user,1,1,1,1
 access_clash_resource,clash.resource,model_clash_resource,base.group_user,1,1,1,1
 access_clash_building,clash.building,model_clash_building,base.group_user,1,1,1,1

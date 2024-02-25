@@ -4,10 +4,12 @@ from odoo.exceptions import ValidationError
 from datetime import datetime, timedelta
 
 class Player(models.Model):
-    _name = 'clash.player'
+    _name = 'res.partner'
     _description = 'Player of Clash of War'
+    _inherit = 'res.partner'
 
     name = fields.Char()
+    is_player = fields.Boolean(default=False)
     level = fields.Integer(default=1)
     village_id = fields.Many2one('clash.village', string='Village')
     village_level = fields.Integer(string='Nivel de aldea', related='village_id.city_hall_level', readonly=True)
@@ -31,7 +33,7 @@ class Player(models.Model):
         return True
 
     def action_reset_player_properties(self):
-        players = self.env['clash.player'].search([])
+        players = self.env['res.partner'].search([])
         players.reset_properties()
         return True
 
@@ -220,9 +222,9 @@ class Battle(models.Model):
     _description = 'Battle in Clash of War'
 
     name = fields.Char()
-    player_1 = fields.Many2one('clash.player', string='Jugador 1', required=True)
-    player_2 = fields.Many2one('clash.player', string='Jugador 2', required=True)
-    winner = fields.Many2one('clash.player', string='Ganador', compute='_compute_ganador', store=True)
+    player_1 = fields.Many2one('res.partner', string='Jugador 1', required=True)
+    player_2 = fields.Many2one('res.partner', string='Jugador 2', required=True)
+    winner = fields.Many2one('res.partner', string='Ganador', compute='_compute_ganador', store=True)
     start_date = fields.Datetime(string='Fecha de Inicio', default=fields.Datetime.now, readonly=True)
     end_date = fields.Datetime(string='Fecha de Fin', compute='_compute_end_date', store=True)
     battle_finished = fields.Boolean(string='Batalla terminada', compute='_compute_battle_finished', store=True)

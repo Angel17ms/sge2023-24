@@ -3,13 +3,14 @@
 
     <record id="action_reset_player_properties" model="ir.actions.server">
             <field name="name">Reset Player Properties</field>
-            <field name="model_id" ref="model_clash_player"/>
-            <field name="code">action = self.env['clash.player'].reset_properties()</field>
+            <field name="model_id" ref="model_res_partner"/>
+            <field name="code">action = self.env['res.partner'].reset_properties()</field>
         </record>
 
     <record id="view_player_tree" model="ir.ui.view">
         <field name="name">clash.player.tree</field>
-        <field name="model">clash.player</field>
+        <field name="model">res.partner</field>
+        <field name="priority" eval="16"/>
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
@@ -26,7 +27,7 @@
 
     <record id="view_player_form" model="ir.ui.view">
         <field name="name">clash.player.form</field>
-        <field name="model">clash.player</field>
+        <field name="model">res.partner</field>
         <field name="arch" type="xml">
             <form>
                 <sheet>
@@ -43,9 +44,11 @@
 
     <record id="view_clash_player_search" model="ir.ui.view">
     <field name="name">clash.player.search</field>
-    <field name="model">clash.player</field>
+    <field name="model">res.partner</field>
     <field name="arch" type="xml">
         <search>
+            <filter name="is_player_filter" string="Is Player" domain="[('is_player','=',True)]" />
+
             <field name="name" string="Player Name"/>
             <field name="level" string="Player Level"/>
             <filter name="level_>_5" string="5 level or more" domain="[('level','>',5)]"/> 
@@ -57,10 +60,33 @@
     </field>
 </record>
 
+<record model="ir.ui.view" id="clash.player_partners_form_view_inherit">
+            <field name="name">player form inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+
+               <xpath expr="//field[@name='vat']" position="after">
+                <field name="is_player"/>
+               </xpath>
+
+                <notebook position="inside">
+                    <page string="Player">
+                        <group>
+                            <field name="name"/>
+                            <field name="level"/>
+                            <field name="village_level"/>
+                            <field name="village_id"/>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
 
 <record id="view_player_kanban" model="ir.ui.view">
             <field name="name">clash.player.kanban</field>
-            <field name="model">clash.player</field>
+            <field name="model">res.partner</field>
             <field name="arch" type="xml">
                 <kanban>
                     <templates>
